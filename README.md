@@ -1,162 +1,131 @@
-# VK Automation Bot
+English version (README-en.md)
 
-This script is designed to automate interactions with VK (VKontakte). It allows you to:
+Title: VK Automation CLI (bot.py)
 
-- Retrieve the list of suggested friends and display only their first and last names.
-- Automatically send friend requests to selected users.
-- Delete outgoing and incoming friend requests.
+Overview
+- A Python-based command-line tool that automates several VK actions using the VK API.
+- Features include:
+- Delete outgoing friend requests
+- Add suggested friends
+- Unsubscribe from all groups
+- Delete all music
+- Like posts in a group feed
+- Like posts on a user’s wall
+- Remove likes from posts in a group
+- Remove likes from a user’s posts
+- Interactive, with colored status boxes and confirmation prompts.
+- Language of prompts: Russian, but code comments and structure are in English/Russian mix.
 
-Additionally, it features a colorful frame with a random color on startup, making the interface look neat and vibrant.
+Prerequisites
+- Python 3.8+ (tested with 3.8–3.11)
+- pip (comes with Python)
+- A VK user access token with the necessary permissions (offline scope is helpful for long-running sessions)
 
----
+Installation
+- Install required libraries:
+- pip install vk_api colorama
+- Optional: clone the repo and run the script directly
+- python bot.py
+- The script will prompt you to enter your VK access token at startup.
 
-## How the script works
+Usage
+- When you run python bot.py:
+- A welcome colored box is printed.
+- You are asked to enter your VK access token.
+- The script establishes a VK session via vk_api.VkApi(token=token).
+- You are presented with a menu of actions (1–8) and 0 to exit.
+- For each operation:
+- A confirmation prompt appears (e.g., “Do you want to ...? 1 for Yes / 0 for No”).
+- If you confirm (enter 1), the script performs the action and logs progress.
+- If you cancel (enter 0), the operation is skipped with a notice.
+- Operations (as numbered in the UI):
+1) Delete outgoing friend requests
+2) View suggested friends and add them
+3) Unsubscribe from all groups
+4) Delete all music
+5) Put likes on posts in a group’s wall
+6) Like posts on a user’s wall
+7) Remove likes from posts in a group
+8) Remove likes from posts on a user’s wall
+0) Exit
 
-### 1. Enter your access token
-When you run the program, it prompts you to input your VK access token — which you should obtain in advance from the [VK developer section](https://vk.com/dev/access_token).
+Notes
+- The script relies on VK API methods like friends.getRequests, friends.delete, groups.leave, audio.delete, wall.get, likes.add, likes.delete, etc.
+- Some operations may fail due to API limitations, permissions, or rate limits. Errors are reported in the console.
+- Output is enhanced with colored boxes via colorama and ANSI color codes.
 
-Your token needs permissions to manage friends and requests.
+Security and Safety
+- The script requires your VK access token. Do not share it.
+- Treat this tool as a risky automation utility: confirm destructive actions (like deleting music or leaving groups) before running.
+- Consider using a dedicated account or token with limited permissions for automated tasks.
 
-### 2. Visual design
-Before starting, a decorative frame with a greeting appears, with a randomly chosen color, to enhance the visual appeal.
+Configuration
+- There is no separate config file; the token is entered at runtime.
+- The script prints status messages and uses a random color for the banner box on startup.
 
-### 3. Main menu
-You can select one of two options:
-- **1** — delete all outgoing friend requests.
-- **2** — get the list of suggested friends, display only their names, and send friend requests automatically.
-
----
-
-## Detailed function descriptions
-
-### `print_box(title, content_lines)`
-This function draws a beautiful box with a header and content. The box's color is randomly selected each run, making the interface more engaging.
-
----
-
-### `delete_outgoing_requests()`
-This function finds all friend requests you've sent (outgoing) and deletes them.
-How it works:
-- Retrieves the list of outgoing requests.
-- Calls the `friends.delete` API method for each.
-- Displays the status of each deletion.
-
----
-
-### `add_friends()`
-This function:
-- Fetches suggested friends (`friends.getSuggestions()`).
-- Displays only their first and last names.
-- Then, optionally, sends friend requests to each of them automatically, with delays.
-
----
-
-## How to run
-
-1. Install the required libraries:
-BASH
-pip install vk_api colorama
-Скопировать
-Запустить
-Скачать
-
-
-2. Launch the script — it will ask for your access token.
-
-3. Choose an action — delete requests or add friends.
-
----
-
-## Important notes
-
-- For proper operation, it's recommended to run in Windows Terminal or another modern terminal that supports Unicode.
-- On Windows, in cmd, run `chcp 65001` for UTF-8 support.
-- For obtaining your token, see the [official VK documentation](https://vk.com/dev/access_token).
-
----
-
-## Summary
-
-This script is a convenient tool for managing VK friend requests and suggested friends with a friendly interface and automation features. It’s suitable for personal use or small communities needing quick list management.
+Troubleshooting
+- If the script cannot create a VK session, verify that the token is valid and has required permissions.
+- If an API error occurs for a specific operation, check the error message in the console and retry later (rate limits or permission issues are common).
 
 
-# VK Automation Bot
+Russian version (README-ru.md)
 
-Этот скрипт предназначен для автоматизации работы с VK (ВКонтакте). Он позволяет:
+Название: VK Автоматизация CLI (bot.py)
 
-- Получить список предложенных друзей и вывести только их имена и фамилии.
-- Автоматически отправить заявки в друзья выбранным пользователям.
-- Удалять исходящие и входящие заявки.
+Описание
+- Python-скрипт с интерфейсом командной строки, который автоматизирует ряд действий во VK через VK API.
+- Возможности:
+- Удаление исходящих заявок в друзья
+- Добавление предложенных друзей
+- Отписка от всех групп
+- Удаление всей музыки
+- Поставить лайки запостам в ленте группы
+- Поставить лайки на посты пользователя
+- Удалить лайки с постов группы
+- Удалить лайки с постов пользователя
+- Интерактивный режим с выводом в цвете и подтверждениями перед выполнением операций.
+- Приветственное оформление на русском языке в интерфейсе.
 
-Также в нем реализована красочная рамка с рандомным цветом при запуске, чтобы интерфейс выглядел аккуратно и ярко.
+Требования
+- Python 3.8+ (проверено на актуальных версиях)
+- Установленные библиотеки vk_api и colorama
+- Токен доступа VK пользователя с нужными правами (рекомендуется offline-право для стабильной работы)
 
----
+Установка
+- Установить зависимости:
+- pip install vk_api colorama
+- Запустить скрипт:
+- python bot.py
+- При первом запуске скрипт запросит ваш токен доступа VK.
 
-## Как работает скрипт
+Использование
+- При запуске бот выводит приветствие в цветной рамке.
+- Затем запрашивает токен доступа.
+- Скрипт устанавливает сессию VK через vk_api.VkApi(token=token) и открывает меню.
+- В меню можно выбрать действия плитками 1–8 и 0 для выхода.
+- Перед выполнением любой операции появляется подтверждение (1 — да, 0 — отмена).
+- Номер действий в меню:
+1) Удалить исходящие заявки
+2) Посмотреть имена предложенных друзей и добавить их
+3) Отписаться от всех групп
+4) Удалить всю музыку
+5) Поставить лайки в ленте группы
+6) Поставить лайки на странице пользователя
+7) Убрать лайки с постов группы
+8) Убрать лайки с постов пользователя
+0) Выход
 
-### 1. Ввод токена доступа
-При запуске программа запрашивает у вас токен доступа VK — его нужно получить заранее через [раздел разработчика VK](https://vk.com/dev/access_token).
+Замечания
+- Скрипт напрямую взаимодействует с VK API и может нести риск нежелательных действий (удаление музыки, выход из сообществ и т. п.). Будьте внимательны и заранее протестируйте на тестовом аккаунте.
+- Возможны ошибки API, ограничения по частоте запросов и отсутствие разрешений на конкретные операции. Ошибки выводятся в консоль.
 
-Токен должен иметь разрешения для работы с друзьями и заявками.
+Безопасность
+- Не передавайте токен посторонним лицам.
+- Для долгосрочной работы можно использовать токен с offline-права.
 
-### 2. Визуальное оформление
-Перед началом работы отображается рамка с приветствием, которая выбирается в случайном цвете. Это делается для красоты интерфейса.
+Настройка и использование
+- Токен вводится вручную во время запуска.
+- Текстовые сообщения интерфейса на русском языке; код содержит элементы на русском и английском.
 
-### 3. Основное меню
-Вы можете выбрать одну из двух опций:
-- **1** — удалить все исходящие заявки.
-- **2** — получить список предложенных друзей и автоматически отправить заявки в друзья.
-
----
-
-## Подробное описание функций
-
-### `print_box(title, content_lines)`
-Функция рисует красивую рамку с заголовком и содержимым. Цвет рамки выбирается случайным при каждом запуске. Это делает интерфейс более приятным.
-
----
-
-### `удалить_исходящие_заявки()`
-Эта функция ищет все заявки, отправленные вами (исходящие), и удаляет их.
-Работает так:
-- Получает список исходящих заявок.
-- Для каждой заявки вызывает API-метод `friends.delete`.
-- Выводит статус удаления.
-
----
-
-### `добавить_друзей()`
-Эта функция:
-- Получает список предложенных друзей (`friends.getSuggestions()`).
-- Выводит только их имена и фамилии.
-- Затем по желанию отправляет заявки в друзья каждому из них (автоматически, с задержкой).
-
----
-
-## Как запустить
-
-1. Установите необходимые библиотеки:
-BASH
-pip install vk_api colorama
-Скопировать
-Запустить
-Скачать
-
-
-2. Запустите скрипт, он попросит ввести ваш токен.
-
-3. Выберите действие — удалить заявки или добавить друзей.
-
----
-
-## Важные заметки
-
-- Для корректной работы рекомендуется запускать в Windows Terminal или другом современном терминале, поддерживающем Unicode.
-- В Windows в cmd рекомендуется выполнить команду `chcp 65001` для поддержки UTF-8.
-- Для получения токена смотрите [официальную документацию VK](https://vk.com/dev/access_token).
-
----
-
-## Итог
-
-Этот скрипт — удобный инструмент для управления заявками и друзьями VK с приятным интерфейсом и автоматизацией. Он подойдет как для личного использования, так и для небольших сообществ, которым нужно быстро управлять списками.
+Внесение изменений
+- Вносите изменения через форк репозитория, создайте ветку, поменяйте код и создайте pull request.
